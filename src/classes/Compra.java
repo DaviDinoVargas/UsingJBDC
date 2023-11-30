@@ -1,28 +1,25 @@
 package classes;
+
 import java.util.List;
 
 public class Compra {
-
-    public static void comprarProdutoPorCodigoProprio(Jbdc jbdc, int codigoProprio, int quantidade) {
+    public static void comprarProdutoPorCodigoProprio(Jbdc jbdc, int codigoProprio, int quantidade, MensagemService mensagemService) {
         List<Produto> produtos = jbdc.getListaProdutos();
 
         for (Produto produto : produtos) {
             if (produto.getCodigoProprio() == codigoProprio) {
                 if (produto.getEstoque() >= quantidade) {
                     double precoTotal = produto.getPreco() * quantidade;
-                    System.out.println("Compra realizada com sucesso.");
-                    System.out.println("Produto: " + produto.getDescricao());
-                    System.out.println("Quantidade: " + quantidade);
-                    System.out.println("Preço Total: " + precoTotal);
+                    mensagemService.mostrarMensagemCompraSucesso(produto, quantidade, precoTotal);
                     produto.setEstoque(produto.getEstoque() - quantidade);
                     jbdc.salvarDadosNoArquivo();
                 } else {
-                    System.out.println("Estoque insuficiente.");
+                    mensagemService.mostrarMensagemEstoqueInsuficiente();
                 }
                 return;
             }
         }
 
-        System.out.println("Produto não encontrado para o Código Próprio fornecido.");
+        mensagemService.mostrarMensagemProdutoNaoEncontrado();
     }
 }
