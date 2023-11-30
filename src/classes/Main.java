@@ -75,6 +75,6 @@ public class Main {
         int codigoCompra = scanner.nextInt();
         System.out.print("Quantidade a ser comprada: ");
         int quantidadeCompra = scanner.nextInt();
-        Compra.comprarProdutoPorCodigoProprio(jbdc, codigoCompra, quantidadeCompra);
+        Compra.comprarProdutoPorCodigoProprio(jbdc, codigoCompra, quantidadeCompra, null);
     }
 }
